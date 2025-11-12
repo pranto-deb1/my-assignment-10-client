@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Nav = () => {
-  const  user  = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+
   console.log(user);
   const [dropdown, setDropdown] = useState(false);
   //   const handleToggleDropdown = () => {};
@@ -69,9 +70,17 @@ const Nav = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end relative">
-        <a className="btn" onClick={() => setDropdown(!dropdown)}>
-          Button
-        </a>
+        {user ? (
+          <img
+            src={user.photoURL}
+            className="w-20 h-20 rounded-full"
+            onClick={() => setDropdown(!dropdown)}
+          />
+        ) : (
+          <Link to={"/login"} className="btn">
+            Login
+          </Link>
+        )}
         <div
           className={`${
             dropdown

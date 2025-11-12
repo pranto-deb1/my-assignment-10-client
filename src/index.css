@@ -3,6 +3,10 @@
   themes: light --default, dark --prefersdark;
 }
 
+html, body, #root {
+  height: 100%;
+}
+
 .transition-dropdown {
   animation: popUp 0.05s ease-in-out;
 }

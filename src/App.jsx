@@ -14,7 +14,6 @@ function App() {
         backgroundAttachment: "fixed",
         height: "100%",
       }}
-      
     >
       <header className="sticky top-0 z-10">
         <Nav></Nav>
