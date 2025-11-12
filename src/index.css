@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+.transition-dropdown {
+  animation: popUp 0.05s ease-in-out;
+}
+
+@keyframes popUp {
+  0% {
+    transform: scale(0.5);
+    transform: translateX(500px);
+  }
+  100% {
+    transform: scale(1);
+    transform: translateX(0);
+  }
+}
