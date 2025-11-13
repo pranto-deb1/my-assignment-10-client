@@ -16,7 +16,9 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <span className="loading loading-infinity loading-xl mt-[400px] flex justify-self-center"></span>
+    );
   }
   return (
     <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>

@@ -96,22 +96,28 @@ const Nav = () => {
             </p>
           </div>
         ) : (
-          <Link to={"/login"} className="btn">
-            Login
-          </Link>
+          <div className="flex gap-4">
+            <Link to={"/login"} className="btn">
+              Login
+            </Link>
+
+            <Link to={"/register"} className="btn">
+              Register
+            </Link>
+          </div>
         )}
         <div
           className={`${
             dropdown
-              ? " absolute overflow-scroll w-2xs h-[250px] border top-[70px] bg-base-100 p-4 rounded-[10px] transition-dropdown"
+              ? " absolute overflow-scroll w-2xs h-[250px] border top-[70px] bg-base-100/50 p-4 rounded-[10px] transition-dropdown"
               : "hidden"
           }`}
         >
           <p className="font-bold text-xl mb-2.5">You</p>
           <div className="flex flex-col mb-6 gap-4 ">
-            <Link className="btn ">Add Review</Link>
-            <Link className="btn">My Reviews</Link>
-            <button onClick={handleLogOut} className="btn">
+            <Link className="btn bg-base-100/50">Add Review</Link>
+            <Link className="btn bg-base-100/50">My Reviews</Link>
+            <button onClick={handleLogOut} className="btn bg-base-100/50">
               Logout
             </button>
           </div>

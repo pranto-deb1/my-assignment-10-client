@@ -7,6 +7,7 @@ import App from "./App.jsx";
 import Home from "./Pages/Home.jsx";
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import Login from "./Pages/Login.jsx";
+import Register from "./Pages/Register.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: Home },
       { path: "/login", Component: Login },
+      { path: "/register", Component: Register },
     ],
   },
 ]);

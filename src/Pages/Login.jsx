@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 import { auth } from "../firebase/firebase.init";
 import { toast, ToastContainer } from "react-toastify";
-import { useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,37 +29,60 @@ const Login = () => {
     e.preventDefault();
   };
 
+  const [shwPassword, setShowPassword] = useState(false);
+
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
           <h1 className="text-5xl font-bold">Login now!</h1>
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className="card bg-white/30 backdrop-blur-md w-full max-w-sm shrink-0 shadow-2xl rounded-2xl">
           <form onSubmit={handleFormSubmit} className="card-body">
             <fieldset className="fieldset">
-              <label className="label">Email</label>
+              <label className="label text-orange-600 font-semibold">
+                Email
+              </label>
               <input
                 name="email"
                 type="email"
-                className="input"
+                className="input bg-white/50 placeholder-gray-500 focus:bg-white focus:ring-2 focus:ring-orange-400 rounded-xl"
                 placeholder="Email"
+                required
               />
-              <label className="label">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="input"
-                placeholder="Password"
-              />
-              <div>
-                {/* <a className="link link-hover">Forgot password?</a> */}
+
+              <div className="relative mt-4">
+                <label className="label text-orange-600 font-semibold">
+                  Password
+                </label>
+                <input
+                  name="password"
+                  type={shwPassword ? "text" : "password"}
+                  className="input bg-white/50 placeholder-gray-500 focus:bg-white focus:ring-2 focus:ring-orange-400 rounded-xl"
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!shwPassword)}
+                  className="btn btn-sm absolute right-5 top-[37%] z-10 bg-white/50 hover:bg-orange-100"
+                >
+                  {shwPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
-              <button className="btn btn-neutral mt-4">Login</button>
-              <p className="text-center text-xl leading-[0.8]">--- or ---</p>
+
+              <button className="btn mt-6 w-full bg-gradient-to-r from-orange-400 to-red-500 text-white font-semibold py-3 rounded-full shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300">
+                Login
+              </button>
+
+              <p className="text-center text-xl leading-[0.8] my-4">
+                --- or ---
+              </p>
+
               <button
-                className="btn bg-white text-black border-[#e5e5e5]"
+                type="button"
                 onClick={handleGoogleSubmit}
+                className="btn w-full bg-white/50 text-black border-[#e5e5e5] font-semibold py-3 rounded-full shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <svg
                   aria-label="Google logo"
@@ -87,8 +111,18 @@ const Login = () => {
                     ></path>
                   </g>
                 </svg>
-                Login with Google
+                Continue with Google
               </button>
+
+              <p className="flex gap-3 text-[16px] mt-4 justify-center">
+                Don't have an account?{" "}
+                <Link
+                  to={"/register"}
+                  className="hover:underline text-orange-600 font-medium"
+                >
+                  Register
+                </Link>
+              </p>
             </fieldset>
           </form>
         </div>
