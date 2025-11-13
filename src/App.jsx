@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import Footer from "./Components/Footer";
 import Nav from "./Components/Nav";
 import backgroundImage from "./assets/Images/top-view-green-bowl-with-colorful-cereals.jpg";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <footer>
         <Footer></Footer>
       </footer>
+      <ToastContainer />
     </div>
   );
 }

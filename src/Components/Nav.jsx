@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase.init";
+import { toast, ToastContainer } from "react-toastify";
 
 const Nav = () => {
   const { user } = useContext(AuthContext);
@@ -33,6 +36,17 @@ const Nav = () => {
       </NavLink>
     </>
   );
+
+  const handleLogOut = () => {
+    signOut(auth)
+      .then(() => {
+        setTimeout(() => toast.success("User logged out successfully"), 100);
+        setDropdown(false);
+      })
+      .catch((err) => {
+        toast.error(err.code);
+      });
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -71,11 +85,16 @@ const Nav = () => {
       </div>
       <div className="navbar-end relative">
         {user ? (
-          <img
-            src={user.photoURL}
-            className="w-20 h-20 rounded-full"
-            onClick={() => setDropdown(!dropdown)}
-          />
+          <div className="flex gap-2 items-center">
+            <img
+              src={user.photoURL}
+              className="w-14 h-14 rounded-full"
+              onClick={() => setDropdown(!dropdown)}
+            />
+            <p onClick={() => setDropdown(!dropdown)} className="">
+              {user.displayName}
+            </p>
+          </div>
         ) : (
           <Link to={"/login"} className="btn">
             Login
@@ -84,18 +103,33 @@ const Nav = () => {
         <div
           className={`${
             dropdown
-              ? " absolute  w-2xs h-32 border top-[70px] transition-dropdown"
+              ? " absolute overflow-scroll w-2xs h-[250px] border top-[70px] bg-base-100 p-4 rounded-[10px] transition-dropdown"
               : "hidden"
           }`}
         >
-          <input
-            onChange={(e) => handleThemeChange(e.target.checked)}
-            type="checkbox"
-            className="toggle"
-            defaultChecked={theme === "dark"}
-          />
+          <p className="font-bold text-xl mb-2.5">You</p>
+          <div className="flex flex-col mb-6 gap-4 ">
+            <Link className="btn ">Add Review</Link>
+            <Link className="btn">My Reviews</Link>
+            <button onClick={handleLogOut} className="btn">
+              Logout
+            </button>
+          </div>
+
+          <p className="font-bold text-xl mb-2.5">Theme</p>
+          <div className="flex gap-2.5">
+            <p className="">Light Mode</p>
+            <input
+              onChange={(e) => handleThemeChange(e.target.checked)}
+              type="checkbox"
+              className="toggle"
+              defaultChecked={theme === "dark"}
+            />
+            <p className="">Dark Mode</p>
+          </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
