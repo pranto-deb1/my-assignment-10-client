@@ -4,6 +4,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase.init";
 import { toast } from "react-toastify";
+import logo from "/ChatGPT_Image_Nov_15__2025__08_19_28_PM-removebg-preview.png";
 
 const Nav = () => {
   const { user } = useContext(AuthContext);
@@ -31,8 +32,8 @@ const Nav = () => {
       <NavLink to={"/About"} className={"mx-2.5"}>
         About
       </NavLink>
-      <NavLink to={"/All-food"} className={"mx-2.5"}>
-        All Food
+      <NavLink to={"/all-reviews"} className={"mx-2.5"}>
+        All Reviews
       </NavLink>
     </>
   );
@@ -52,7 +53,7 @@ const Nav = () => {
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
+            {/* <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
               fill="none"
@@ -66,7 +67,8 @@ const Nav = () => {
                 strokeWidth="2"
                 d="M4 6h16M4 12h8m-8 6h16"
               />{" "}
-            </svg>
+            </svg> */}
+            <img src={logo} alt="" className="w-[55px] h-[55px]" />
           </div>
           <ul
             tabIndex="-1"
@@ -75,9 +77,12 @@ const Nav = () => {
             {links}
           </ul>
         </div>
-        <a className=" text-xl text-center bg-gray-200 px-4 py-2 rounded-2xl ">
-          <span className="text-amber-600 font-black">Local Food Lovers</span>
-          <br /> <span className="text-green-400 font-bold">Network</span>
+        <a>
+          <img
+            src={logo}
+            alt=""
+            className="w-[75px] h-[75px] hidden lg:block"
+          />
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -86,12 +91,21 @@ const Nav = () => {
       <div className="navbar-end relative">
         {user ? (
           <div className="flex gap-2 items-center">
+            <p
+              onClick={() => setDropdown(!dropdown)}
+              className="block lg:hidden text-right"
+            >
+              {user.displayName}
+            </p>
             <img
               src={user.photoURL}
-              className="w-14 h-14 rounded-full"
+              className="w-11 h-11 lg:w-14 lg:h-14 rounded-full"
               onClick={() => setDropdown(!dropdown)}
             />
-            <p onClick={() => setDropdown(!dropdown)} className="">
+            <p
+              onClick={() => setDropdown(!dropdown)}
+              className="hidden lg:block"
+            >
               {user.displayName}
             </p>
           </div>
@@ -109,15 +123,15 @@ const Nav = () => {
         <div
           className={`${
             dropdown
-              ? " absolute overflow-scroll w-2xs h-[250px] border top-[70px] bg-base-100/50 p-4 rounded-[10px] transition-dropdown"
+              ? " absolute overflow-scroll w-2xs h-[250px] border top-[70px] bg-base-100/70 p-4 rounded-[10px] transition-dropdown"
               : "hidden"
           }`}
         >
           <p className="font-bold text-xl mb-2.5">You</p>
           <div className="flex flex-col mb-6 gap-4 ">
-            <Link className="btn bg-base-100/50">Add Review</Link>
-            <Link className="btn bg-base-100/50">My Reviews</Link>
-            <button onClick={handleLogOut} className="btn bg-base-100/50">
+            <Link className="btn bg-amber-500/80">Add Review</Link>
+            <Link className="btn bg-amber-500/80">My Reviews</Link>
+            <button onClick={handleLogOut} className="btn bg-amber-500/80">
               Logout
             </button>
           </div>
