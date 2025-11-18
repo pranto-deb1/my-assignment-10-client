@@ -77,11 +77,8 @@ const ThreeD = () => {
     return () => window.removeEventListener("resize", resizeRenderer);
   }, []);
 
-  // console.log(food);
-
   return (
     <div className="w-10/12 mx-auto">
-      
       <div>
         <div className="w-full max-w-lg ">
           <canvas

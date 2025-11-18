@@ -1,23 +1,49 @@
-import { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import Loader from "../Components/Loader/Loader";
 
-const AddReview = () => {
-  const navigate = useNavigate();
+const EditReview = () => {
+  const { id } = useParams();
   const { user } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
-    foodName: "",
-    foodImage: "",
-    restaurantName: "",
-    location: "",
-    rating: "",
-    reviewText: "",
-    reviewerName: user.displayName,
-    reviewerEmail: user.email,
-    date: new Date().toISOString().split("T")[0],
-  });
+  const [oldData, setOldData] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/food-reviews/${id}`, {
+      headers: {
+        authorization: `bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setOldData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.code);
+        setLoading(false);
+      });
+  }, [id, user]);
+
+  const [formData, setFormData] = useState({});
+
+  useEffect(() => {
+    if (oldData) {
+      setFormData({
+        foodName: oldData.foodName || "",
+        foodImage: oldData.foodImage || "",
+        restaurantName: oldData.restaurantName || "",
+        location: oldData.location || "",
+        rating: oldData.rating || "",
+        reviewText: oldData.reviewText || "",
+        reviewerName: user.displayName,
+        reviewerEmail: user.email,
+      });
+    }
+  }, [oldData, user]);
 
   const handleChange = (e) => {
     setFormData({
@@ -28,22 +54,30 @@ const AddReview = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    fetch("http://localhost:3000/food-reviews", {
-      method: "POST",
+    fetch(`http://localhost:3000/food-reviews/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        authorization: `bearer ${user.accessToken}`,
       },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log("Review added:", data);
-        toast.success("Review submitted successfully!");
-        navigate("/");
+      .then(() => {
+        toast.success("successfully updated review");
+        setLoading(false);
       })
-      .catch((err) => toast.error(err));
+      .catch((err) => {
+        toast.error(err.code);
+        setLoading(false);
+      });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-full flex justify-center mt-10 px-4">
@@ -52,7 +86,7 @@ const AddReview = () => {
         className="w-full max-w-xl mx-auto bg-base-100/50 backdrop-blur-sm shadow-xl rounded-2xl p-8 space-y-8 border border-amber-200"
       >
         <h2 className="text-4xl font-bold text-center text-amber-800 tracking-wider border-b pb-4 border-amber-100">
-          ✨ Food review Form
+          ✨ Update review
         </h2>
 
         <style>
@@ -191,11 +225,11 @@ const AddReview = () => {
           type="submit"
           className="w-full buttonPrimery text-white py-3 rounded-lg text-xl font-bold shadow-md shadow-amber-300/50 transition-all duration-300"
         >
-          Submit Review
+          Update Review
         </button>
       </form>
     </div>
   );
 };
 
-export default AddReview;
+export default EditReview;
