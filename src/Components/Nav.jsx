@@ -27,13 +27,13 @@ const Nav = () => {
   };
   const links = (
     <>
-      <NavLink to={"/"} className={"mx-2.5"}>
+      <NavLink to={"/"} className={"mx-2.5 text-xl font-semibold"}>
         Home
       </NavLink>
-      <NavLink to={"/About"} className={"mx-2.5"}>
+      <NavLink to={"/About"} className={"mx-2.5 text-xl font-semibold"}>
         About
       </NavLink>
-      <NavLink to={"/all-reviews"} className={"mx-2.5"}>
+      <NavLink to={"/all-reviews"} className={"mx-2.5 text-xl font-semibold"}>
         All Reviews
       </NavLink>
     </>
@@ -109,11 +109,11 @@ const Nav = () => {
           </div>
         ) : (
           <div className="flex gap-4">
-            <Link to={"/login"} className="btn">
+            <Link to={"/login"} className="btn buttonPrimery">
               Login
             </Link>
 
-            <Link to={"/register"} className="btn">
+            <Link to={"/register"} className="btn buttonPrimery">
               Register
             </Link>
           </div>
@@ -127,11 +127,13 @@ const Nav = () => {
         >
           <p className="font-bold text-xl mb-2.5">You</p>
           <div className="flex flex-col mb-6 gap-4 ">
-            <Link to={"/add-review"} className="btn bg-amber-500/80">
+            <Link to={"/add-review"} className="buttonPrimery">
               Add Review
             </Link>
-            <Link className="btn bg-amber-500/80">My Reviews</Link>
-            <button onClick={handleLogOut} className="btn bg-amber-500/80">
+            <Link to={"/my-reviews"} className="buttonPrimery">
+              My Reviews
+            </Link>
+            <button onClick={handleLogOut} className="buttonPrimery">
               Logout
             </button>
           </div>

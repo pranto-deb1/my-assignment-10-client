@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import AllReviewCard from "../Components/AllReviewCard";
+import Loader from "../Components/Loader/Loader";
 
 const AllReviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetch("http://localhost:3000/food-reviews")
       .then((res) => res.json())
-      .then((data) => setReviews(data));
+      .then((data) => {
+        setReviews(data);
+        setLoading(false);
+      });
   }, []);
 
-  console.log(reviews);
+  // console.log(reviews);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="mx-auto w-10/12 xl:w-8/12">

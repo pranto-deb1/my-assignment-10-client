@@ -57,7 +57,7 @@ const HeroSection = () => {
                 <p className="text-lg md:text-xl mb-6 drop-shadow-md">
                   {slide.text}
                 </p>
-                <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300">
+                <button className="buttonPrimery justify-self-center px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-300">
                   {slide.button}
                 </button>
               </div>

@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const AddReview = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
@@ -38,6 +40,7 @@ const AddReview = () => {
       .then((data) => {
         console.log("Review added:", data);
         toast.success("Review submitted successfully!");
+        navigate("/");
       })
       .catch((err) => toast.error(err));
   };
