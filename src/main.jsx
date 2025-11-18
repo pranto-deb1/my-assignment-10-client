@@ -11,6 +11,7 @@ import Register from "./Pages/Register.jsx";
 import AllReviews from "./Pages/AllReviews.jsx";
 import PrivateRoute from "./Components/PrivetRout.jsx";
 import AddReview from "./Pages/AddReview.jsx";
+import ReviewDetail from "./Pages/ReviewDetail.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddReview></AddReview>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/Review-Detail/:id",
+        element: (
+          <PrivateRoute>
+            <ReviewDetail></ReviewDetail>
           </PrivateRoute>
         ),
       },

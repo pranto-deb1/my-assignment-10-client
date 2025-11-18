@@ -84,7 +84,7 @@ const AllReviewCard = ({ review }) => {
 
           <div className="mt-3">
             <Link
-              to={`/review/${_id}`}
+              to={`/Review-Detail/${_id}`}
               className="btn bg-linear-to-r from-orange-400 to-red-500 text-white w-full rounded-full"
             >
               View Details
