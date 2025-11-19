@@ -12,7 +12,11 @@ export default function MyReviews() {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/my-food-reviews?email=${user.email}`)
+      fetch(`http://localhost:3000/my-food-reviews?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${user.accessToken}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           setReviews(data);
@@ -28,6 +32,9 @@ export default function MyReviews() {
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/food-reviews/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: `bearer ${user.accessToken}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {

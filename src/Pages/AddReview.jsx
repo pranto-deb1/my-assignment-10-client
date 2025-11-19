@@ -33,12 +33,13 @@ const AddReview = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `bearer ${user.accessToken}`
       },
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log("Review added:", data);
+      .then(() => {
+        // console.log("Review added:", data);
         toast.success("Review submitted successfully!");
         navigate("/");
       })

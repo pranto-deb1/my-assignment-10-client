@@ -23,6 +23,7 @@ const Login = () => {
       .then((data) => {
         setUser(data.user);
         navigate(from, { replace: true });
+        window.location.reload();
       })
       .catch((e) => {
         toast.error(e.code);
@@ -38,6 +39,7 @@ const Login = () => {
       .then((data) => {
         setUser(data.user);
         navigate(from, { replace: true });
+        window.location.reload();
       })
       .catch((e) => {
         toast.error(e.code);

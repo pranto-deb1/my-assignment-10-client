@@ -55,8 +55,8 @@ const Register = () => {
             };
 
             setUser(updatedUser);
-            // toast.success("created an user");
             navigate("/");
+            window.location.reload();
           })
           .catch((e) => {
             toast.error(e.code);
@@ -72,6 +72,7 @@ const Register = () => {
       .then((data) => {
         setUser(data.user);
         navigate("/");
+        window.location.reload();
       })
       .catch((e) => {
         toast.error(e.code);

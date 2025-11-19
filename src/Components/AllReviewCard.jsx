@@ -1,7 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { toast } from "react-toastify";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const AllReviewCard = ({ review }) => {
+  const { user } = useContext(AuthContext);
   const {
     _id,
     foodName,
@@ -12,6 +16,52 @@ const AllReviewCard = ({ review }) => {
     rating,
     date,
   } = review;
+
+  const likedReview = {
+    foodName: foodName,
+    foodImage: foodImage,
+    restaurantName: restaurantName,
+    location: location,
+    reviewerName: reviewerName,
+    rating: rating,
+    date: date,
+    likedBy: user?.email,
+  };
+
+  const [favoriteReviews, setFavoriteReviews] = useState([]);
+  const [liked, setLiked] = useState(false);
+
+  const fetchFavoriteReviews = () => {
+    if (user?.email) {
+      fetch(`http://localhost:3000/my-favorite-reviews?email=${user.email}`, {
+        headers: {
+          authorization: `bearer ${user.accessToken}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setFavoriteReviews(data);
+        })
+        .catch((err) => {
+          toast.error(err.code || "Failed to fetch favorites");
+        });
+    }
+  };
+
+  useEffect(() => {
+    fetchFavoriteReviews();
+  }, [user]);
+
+  useEffect(() => {
+    const isFavorite = favoriteReviews.some(
+      (data) =>
+        data.foodName === foodName &&
+        data.location === location &&
+        data.date == date
+    );
+
+    setLiked(isFavorite);
+  }, [favoriteReviews, foodName, location, date]);
 
   const cardRef = useRef(null);
 
@@ -45,12 +95,107 @@ const AllReviewCard = ({ review }) => {
       card.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
+
+  const handleLike = () => {
+    if (!user) {
+      toast.error("Please log in to add to favorites.");
+      return;
+    }
+
+    if (liked) {
+      toast.error("Review already liked.");
+      return;
+    }
+
+    fetch("http://localhost:3000/favorite-reviews", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `bearer ${user.accessToken}`,
+      },
+      body: JSON.stringify(likedReview),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setLiked(true);
+
+        const newFavorite = { ...likedReview, _id: data.insertedId };
+        setFavoriteReviews([...favoriteReviews, newFavorite]);
+
+        toast.success("Successfully added to favorite list");
+      })
+      .catch(() => {
+        toast.error("Failed to add to favorite list");
+      });
+  };
+
+  const handleUnlike = () => {
+    const reviewToRemove = favoriteReviews.find(
+      (data) => data.foodName === foodName
+    );
+
+    if (!liked) {
+      toast.error("This review is not currently liked.");
+      return;
+    }
+
+    if (reviewToRemove?._id) {
+      fetch(`http://localhost:3000/favorite-reviews/${reviewToRemove._id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `bearer ${user.accessToken}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            return res.json().then((err) => {
+              throw new Error(err.message || "Failed to delete");
+            });
+          }
+
+          return res.text().then((text) => (text ? JSON.parse(text) : {}));
+        })
+        .then(() => {
+          setLiked(false);
+
+          const updatedFavorites = favoriteReviews.filter(
+            (data) => data._id !== reviewToRemove._id
+          );
+          setFavoriteReviews(updatedFavorites);
+
+          toast.success("Successfully unliked");
+        })
+        .catch((error) => {
+          toast.error(error.message || "Failed to remove from favorite list");
+        });
+    } else {
+      toast.error("Review ID not found in favorites list state.");
+    }
+  };
+
   return (
-    <div className="tilt-wrapper">
+    <div className="tilt-wrapper relative">
       <div
         ref={cardRef}
-        className="card appear-2 transform-3d will-change-transform bg-base-100/30 backdrop-blur-md shadow-lg rounded-xl border border-white/40 transition-all duration-200 ease-out"
+        className="card appear-2 transform-3d will-change-transform bg-base-100/30 backdrop-blur-md shadow-lg rounded-xl border border-white/40 transition-all duration-200 ease-out relative"
       >
+        <button
+          onClick={() => {
+            if (liked) {
+              handleUnlike();
+            } else {
+              handleLike();
+            }
+          }}
+          className="absolute bottom-20 right-3 text-red-500 text-2xl z-10"
+        >
+          {liked ? (
+            <AiFillHeart className="text-red-600" />
+          ) : (
+            <AiOutlineHeart />
+          )}
+        </button>
+
         <figure className="h-48 overflow-hidden rounded-t-xl">
           <img
             src={foodImage}
