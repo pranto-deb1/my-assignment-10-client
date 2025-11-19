@@ -15,11 +15,13 @@ import ReviewDetail from "./Pages/ReviewDetail.jsx";
 import MyReviews from "./Pages/MyReviews.jsx";
 import EditReview from "./Pages/EditReview.jsx";
 import LikedReview from "./Pages/LikedReview.jsx";
+import ErrorPage from "./Pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: App,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       { index: true, Component: Home },
       { path: "/login", Component: Login },
@@ -56,6 +58,7 @@ const router = createBrowserRouter([
             <EditReview></EditReview>
           </PrivateRoute>
         ),
+        errorElement: <ErrorPage></ErrorPage>,
       },
       {
         path: "/liked-reviews",
