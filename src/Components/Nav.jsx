@@ -127,11 +127,41 @@ const Nav = () => {
         >
           <p className="font-bold text-xl mb-2.5">You</p>
           <div className="flex flex-col mb-6 gap-4 ">
-            <Link to={"/add-review"} className="buttonPrimery">
+            <Link
+              onClick={() => {
+                setDropdown(false);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 150);
+              }}
+              to={"/add-review"}
+              className="buttonPrimery"
+            >
               Add Review
             </Link>
-            <Link to={"/my-reviews"} className="buttonPrimery">
+            <Link
+              onClick={() => {
+                setDropdown(false);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 150);
+              }}
+              to={"/my-reviews"}
+              className="buttonPrimery"
+            >
               My Reviews
+            </Link>
+            <Link
+              onClick={() => {
+                setDropdown(false);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 150);
+              }}
+              to={"/liked-reviews"}
+              className="buttonPrimery"
+            >
+              My Favorites
             </Link>
             <button onClick={handleLogOut} className="buttonPrimery">
               Logout
