@@ -1,16 +1,70 @@
-# React + Vite
+# Local Food Lovers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Live Website
 
-Currently, two official plugins are available:
+[https://leafy-croissant-a86748.netlify.app/](https://leafy-croissant-a86748.netlify.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Description
 
-## React Compiler
+**Local Food Lovers** is a blog platform where users can share their food experiences, post reviews, and connect with others who love local cuisine. The platform is fully responsive, secure, and provides role-based access for Admins, Creators, and Users.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Key Features
 
-## Expanding the ESLint configuration
+- Firebase authentication for secure login and registration
+- Create, edit, and manage reviews
+- Fully responsive design for mobile, tablet, and desktop
+- Dark/Light theme toggle with persistence
+- Interactive sliders and carousels for content browsing
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Technologies Used
+
+- **Frontend:** React, React DOM, React Router, Tailwind CSS, DaisyUI
+- **Animations & UI Enhancements:** Framer Motion, Swiper.js, React Icons, React Toastify
+- **Forms & Validation:** React Hook Form, React Datepicker
+- **Backend & Auth:** Firebase (Authentication, Firestore, Storage)
+- **Build Tools:** Vite
+
+## Dependencies
+
+- react
+- react-dom
+- react-router-dom
+- firebase
+- react-hook-form
+- react-datepicker
+- framer-motion
+- react-icons
+- react-toastify
+- three
+- swiper
+- tailwindcss
+- daisyui
+
+## Installation & Running Locally
+
+1. **Clone the repository**  
+   "git clone https://github.com/YourUsername/local-food-lovers.git"
+
+2. **Navigate to the project directory**
+   "cd local-food-lovers"
+
+3. **Install dependencies**
+   "npm install"
+
+4. **Set up Firebase**
+   _Go to Firebase Console and create a new project._
+   _Enable Authentication (Email/Password login) and Firestore Database._
+   _Copy your Firebase configuration._
+   _Create a .env file in the project root and add your Firebase config:_
+
+VITE_API_KEY="Your api key"
+VITE_AUTHDOMAIN="auth domain"
+VITE_PROJECT_ID="your project id"
+VITE_STORAGE_BUCKET="storage bucket"
+VITE_MESSAGING_SENDER_ID="your sender id"
+VITE_APP_ID="your app id"
+
+5. **Start the development server**
+   "npm run dev"
+
+6. **Open your browser and go to "http://localhost:5173"**
