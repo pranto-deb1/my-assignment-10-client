@@ -57,12 +57,12 @@
    _Copy your Firebase configuration._
    _Create a .env file in the project root and add your Firebase config:_
 
-VITE_API_KEY="Your api key"
-VITE_AUTHDOMAIN="auth domain"
-VITE_PROJECT_ID="your project id"
-VITE_STORAGE_BUCKET="storage bucket"
-VITE_MESSAGING_SENDER_ID="your sender id"
-VITE_APP_ID="your app id"
+*VITE_API_KEY="Your api key"*
+*VITE_AUTHDOMAIN="auth domain"*
+*VITE_PROJECT_ID="your project id"*
+*VITE_STORAGE_BUCKET="storage bucket"*
+*VITE_MESSAGING_SENDER_ID="your sender id"*
+*VITE_APP_ID="your app id"*
 
 5. **Start the development server**
    "npm run dev"
