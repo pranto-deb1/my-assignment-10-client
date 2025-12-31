@@ -43,10 +43,10 @@
 ## Installation & Running Locally
 
 1. **Clone the repository**  
-   "git clone https://github.com/YourUsername/local-food-lovers.git"
+   "git clone https://github.com/pranto-deb1/my-assignment-10-client.git"
 
 2. **Navigate to the project directory**
-   "cd local-food-lovers"
+   "cd my-assignment-10-client"
 
 3. **Install dependencies**
    "npm install"
